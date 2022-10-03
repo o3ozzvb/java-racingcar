@@ -43,8 +43,11 @@ public class Car implements Comparable<Car> {
         return this.name;
     }
 
-    @Override
-    public int compareTo(Car o) {
-        return o.pos - this.pos;
+    public int compareTo(Car car) {
+        return this.pos - car.pos;
+    }
+
+    public boolean isSamePosition(Car car) {
+        return this.pos == car.pos;
     }
 }

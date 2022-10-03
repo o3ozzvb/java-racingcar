@@ -29,12 +29,22 @@ public class Cars {
     }
 
     public List<String> getWinners() {
-        int maxPos = getMaxPos();
+        final Car maxPositionCar = findMaxPositionCar();
 
+        return findSamePositionCars(maxPositionCar);
+    }
+
+    private List<String> findSamePositionCars(Car maxPositionCar) {
         return cars.stream()
-                .filter(car -> car.getPos() == maxPos)
-                .map(car -> car.getName())
+                .filter(maxPositionCar::isSamePosition)
+                .map(Car::getName)
                 .collect(Collectors.toList());
+    }
+
+    private Car findMaxPositionCar() {
+        return cars.stream()
+                .max(Car::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("차량이 없습니다."));
     }
 
     private int getMaxPos() {
